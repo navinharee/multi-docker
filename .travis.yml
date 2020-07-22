@@ -1,17 +1,17 @@
 sudo: required
 services:
-  - docker
+- docker
 
 before_install:
-  - docker build -t navinsourie/react-test -f ./client/Dockerfile.dev ./client
+- docker build -t navinsourie/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true navinsourie/react-test npm test
+- docker run -e CI=true navinsourie/react-test npm test
 # -- -- coverage => to make sure the test exits with either 0 or non-zero as the default
 # npm test runs in watch mode.
 
 after_success:
-  - docker build -t navinsourie/multi-client ./client
+- docker build -t navinsourie/multi-client ./client
   - docker build -t navinsourie/multi-nginx ./nginx
   - docker build -t navinsourie/multi-server ./server
   - docker build -t navinsourie/mult-worker ./worker
