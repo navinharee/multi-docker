@@ -11,7 +11,7 @@ script:
 # npm test runs in watch mode.
 
 after_success:
-- docker build -t navinsourie/multi-client ./client
+  - docker build -t navinsourie/multi-client ./client
   - docker build -t navinsourie/multi-nginx ./nginx
   - docker build -t navinsourie/multi-server ./server
   - docker build -t navinsourie/mult-worker ./worker
