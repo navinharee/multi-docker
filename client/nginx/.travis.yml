@@ -1,0 +1,26 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t navinsourie/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true navinsourie/react-test npm test
+# -- -- coverage => to make sure the test exits with either 0 or non-zero as the default
+# npm test runs in watch mode.
+
+after_success:
+  - docker build -t navinsourie/multi-client ./client
+  - docker build -t navinsourie/multi-nginx ./nginx
+  - docker build -t navinsourie/multi-server ./server
+  - docker build -t navinsourie/mult-worker ./worker
+  # log into the docker CLI
+  #set up encrypted env variables that can only be accessed by travis cli
+   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # then take those images and push them on to docker hub
+  - docker push navinsourie/multi-client
+  - docker push navinsourie/multi-nginx
+  - docker push navinsourie/multi-server
+  - docker push navinsourie/multi-worker
