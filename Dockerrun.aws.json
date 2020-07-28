@@ -1,0 +1,32 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [{
+            "name": "react-client",
+            "image": "navinsourie/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "expresss-server",
+            "image": "navinsourie/multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "express-worker",
+            "image": "navinsourie/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        }, {
+            "name": "nginx",
+            "image": "navinsourie/multi-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [{
+                "hostPort": 80,
+                "containerPort": 80
+            }],
+            "links": ["client", "server"]
+        }
+    ]
+}
