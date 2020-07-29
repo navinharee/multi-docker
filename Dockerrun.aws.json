@@ -4,19 +4,22 @@
             "name": "react-client",
             "image": "navinsourie/multi-client",
             "hostname": "client",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "expresss-server",
             "image": "navinsourie/multi-server",
             "hostname": "api",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "express-worker",
             "image": "navinsourie/multi-worker",
             "hostname": "worker",
-            "essential": false
+            "essential": false,
+            "memory": 128
         }, {
             "name": "nginx",
             "image": "navinsourie/multi-nginx",
@@ -26,7 +29,8 @@
                 "hostPort": 80,
                 "containerPort": 80
             }],
-            "links": ["react-client", "expresss-server"]
+            "links": ["react-client", "expresss-server"],
+            "memory": 128
         }
     ]
 }
